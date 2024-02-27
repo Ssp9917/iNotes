@@ -31,7 +31,7 @@ const Home = () => {
     if (isUpdate) {
       
       axios
-        .put("http://localhost:5001/api/notes/updatenote/" + noteId, {
+        .put("https://i-notes-backend.vercel.app/api/notes/updatenote/" + noteId, {
           title,
           tag,
           description,
@@ -51,7 +51,7 @@ const Home = () => {
     } else {
       if ((title != "", tag != "", description != "")) {
         axios
-          .post("http://localhost:5001/api/notes/addnote", {
+          .post("https://i-notes-backend.vercel.app/api/notes/addnote", {
             title,
             tag,
             description,
