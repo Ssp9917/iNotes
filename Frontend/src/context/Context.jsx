@@ -8,7 +8,7 @@ const MainContext = createContext();
 
 const Context = (props) => {
 
-
+axios.defaults.withCredentials = true
   // get Notes state
   const [allNotes, setAllNotes] = useState([]);
 
