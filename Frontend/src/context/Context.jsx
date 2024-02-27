@@ -30,7 +30,7 @@ const Context = (props) => {
     setLoading(true);
     try {
       axios
-        .get("http://localhost:5001/api/notes/fetchallnotes")
+        .get("https://i-notes-backend.vercel.app/api/notes/fetchallnotes")
         .then((success) => {
           setLoading(false);
           setAllNotes(success.data.data);
