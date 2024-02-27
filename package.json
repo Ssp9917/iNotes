@@ -1,0 +1,12 @@
+{
+  "name": "inotes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd backend && nodemon index\" \"cd frontend && npm start\""
+  },
+  "author": "",
+  "license": "ISC"
+}

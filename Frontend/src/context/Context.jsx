@@ -1,45 +1,111 @@
+import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
-import { json } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 const MainContext = createContext();
 
 const Context = (props) => {
+
+
   // get Notes state
   const [allNotes, setAllNotes] = useState([]);
 
+  const [isUpdate,setIsUpdate] = useState(false)
+
+  // navigate
+  // const navigate = useNavigate()
+
   // loading state
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //react toastify
-  const success = (msg) => toast.success(msg);
-  const error = (msg) => toast.error(msg);
+  const openToast = (msg, status) => {
+    toast(msg, { type: status });
+  };
 
   // getAllNotes function
-  const getAllNotes = async () => {
-    setLoading(true)
+  const getAllNotes = () => {
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:5001/api/notes/fetchallnotes", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
+      axios
+        .get("http://localhost:5001/api/notes/fetchallnotes")
+        .then((success) => {
+          setLoading(false);
+          setAllNotes(success.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      const notesData = await res.json();
-
-      // console.log(notesData);
-
-      // insert Data inside the state
-      setAllNotes(notesData)
-      setLoading(false)
+     
     } catch (error) {
       console.log(error);
-      setLoading(false)
+      setLoading(false);
     }
   };
+
+
+   // Delete Note
+      
+   const deleteNotes = (id) => {
+    // console.log(id)
+    axios
+      .delete(`http://localhost:5001/api/notes/deletenote/` + id)
+      .then((success) => {
+        openToast(success.data.msg);
+        getAllNotes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // const submitHandler = (note) =>{
+
+  //   console.log(note)
+
+   
+
+  //   if(isUpdate){
+
+  //     const noteId = note._id
+
+  //     setTitle(note.title)
+  //     setDescription(note.description)
+  //     setTag(note.tag)
+  //     axios.put('http://localhost:5001/api/notes/updatenote/'+noteId).then(
+  //       (success)=>{
+  //         openToast(success.data.msg,'success')
+  //       }
+  //     ).catch(
+  //       (err)=>{
+  //         openToast(err.message)
+  //       }
+  //     )
+  //   }else{
+  //     if ((title != "", tag != "", description != "")) {
+  //       axios.post("http://localhost:5001/api/notes/addnote", {
+  //           title,
+  //           tag,
+  //           description
+  //         })
+  //         .then((success) => {
+  //           openToast(success.data.msg, 'success');
+  //           getAllNotes()
+  //           setTitle('')
+  //           setTag('')
+  //           setDescription('')
+  //           // navigate('/')
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
+  //     }
+  //   }
+    
+  // }
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -47,7 +113,9 @@ const Context = (props) => {
     }
   }, []);
   return (
-    <MainContext.Provider value={{ success, error, allNotes,loading }}>
+    <MainContext.Provider
+      value={{ allNotes,setIsUpdate, loading, getAllNotes, openToast, deleteNotes,getAllNotes}}
+    >
       <ToastContainer />
       {props.children}
     </MainContext.Provider>

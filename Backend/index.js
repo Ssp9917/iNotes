@@ -14,11 +14,11 @@ app.use(express.json())
 app.use(cors())
 
 
-// awailable routes
-app.use('/api/auth',auth)
+// awailable routes 
+// app.use('/api/auth',auth)
 app.use('/api/notes',notes)
 
-
+ 
 app.get('/',(req,res)=>{ 
     res.send("Hello Sonu")
 });

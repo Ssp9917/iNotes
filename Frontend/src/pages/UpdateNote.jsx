@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { MainContext } from '../context/Context'
 
 const UpdateNote = () => {
+
+  const {title,tag,description,setTitle,setTag,setDescription} = useContext(MainContext)
+
   return (
     <div className=" lg:mx-[6em] mt-16 lg:mt-0 flex justify-center items-center h-screen">
       <div className=" bg-[#d2cbbf] lg:w-[60em] lg:h-[35em]  rounded-xl p-10   ">
@@ -13,6 +17,8 @@ const UpdateNote = () => {
           <div>
             <input
               type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               name="title"
               className="inputShadow
                    mb-4 px-2 py-2 w-full rounded-lg text-black placeholder:text-black outline-none"
