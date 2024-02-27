@@ -52,7 +52,7 @@ const Context = (props) => {
    const deleteNotes = (id) => {
     // console.log(id)
     axios
-      .delete(`http://localhost:5001/api/notes/deletenote/` + id)
+      .delete(https://i-notes-backend.vercel.app/api/notes/deletenote/` + id)
       .then((success) => {
         openToast(success.data.msg);
         getAllNotes();
