@@ -3,11 +3,12 @@ import React, { createContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const MainContext = createContext();
 
 const Context = (props) => {
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+  const NOTES_BASE_URL = process.env.REACT_APP_NOTES_BASE_URL
 
   // get Notes state
   const [allNotes, setAllNotes] = useState([]);
@@ -30,7 +31,7 @@ const Context = (props) => {
     setLoading(true);
     try {
       axios
-        .get("http://localhost:5001/api/notes/fetchallnotes")
+        .get(API_BASE_URL+NOTES_BASE_URL+"/fetchallnotes")
         .then((success) => {
           setLoading(false);
           setAllNotes(success.data.data);
@@ -52,7 +53,7 @@ const Context = (props) => {
    const deleteNotes = (id) => {
     // console.log(id)
     axios
-      .delete(`http://localhost:5001/api/notes/deletenote/` + id)
+      .delete(API_BASE_URL+NOTES_BASE_URL`/deletenote/` + id)
       .then((success) => {
         openToast(success.data.msg);
         getAllNotes();
@@ -62,50 +63,7 @@ const Context = (props) => {
       });
   };
 
-  // const submitHandler = (note) =>{
-
-  //   console.log(note)
-
-   
-
-  //   if(isUpdate){
-
-  //     const noteId = note._id
-
-  //     setTitle(note.title)
-  //     setDescription(note.description)
-  //     setTag(note.tag)
-  //     axios.put('http://localhost:5001/api/notes/updatenote/'+noteId).then(
-  //       (success)=>{
-  //         openToast(success.data.msg,'success')
-  //       }
-  //     ).catch(
-  //       (err)=>{
-  //         openToast(err.message)
-  //       }
-  //     )
-  //   }else{
-  //     if ((title != "", tag != "", description != "")) {
-  //       axios.post("http://localhost:5001/api/notes/addnote", {
-  //           title,
-  //           tag,
-  //           description
-  //         })
-  //         .then((success) => {
-  //           openToast(success.data.msg, 'success');
-  //           getAllNotes()
-  //           setTitle('')
-  //           setTag('')
-  //           setDescription('')
-  //           // navigate('/')
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //     }
-  //   }
-    
-  // }
+  
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -114,7 +72,7 @@ const Context = (props) => {
   }, []);
   return (
     <MainContext.Provider
-      value={{ allNotes,setIsUpdate, loading, getAllNotes, openToast, deleteNotes,getAllNotes}}
+      value={{ allNotes,setIsUpdate, loading, getAllNotes, openToast, deleteNotes,getAllNotes,API_BASE_URL,NOTES_BASE_URL}}
     >
       <ToastContainer />
       {props.children}

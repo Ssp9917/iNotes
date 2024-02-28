@@ -1,6 +1,6 @@
 import express  from "express";
 import connectToMongo from "./database/db.js";
-import auth from './routes/auth.js'
+
 import notes from './routes/notes.js'
 import cors from 'cors'
 
@@ -14,9 +14,9 @@ app.use(express.json())
 app.use(cors())
 
 
-// awailable routes 
+// awailable routes  
 // app.use('/api/auth',auth)
-app.use('/api/notes',notes)
+app.use('/api/notes',notes) 
 
  
 app.get('/',(req,res)=>{ 

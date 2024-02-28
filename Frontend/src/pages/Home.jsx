@@ -23,6 +23,8 @@ const Home = () => {
     deleteNotes,
     openToast,
     getAllNotes,
+    NOTES_BASE_URL,
+    API_BASE_URL  
   } = useContext(MainContext);
 
   const addNote = () => {
@@ -31,7 +33,7 @@ const Home = () => {
     if (isUpdate) {
       
       axios
-        .put("http://localhost:5001/api/notes/updatenote/" + noteId, {
+        .put(API_BASE_URL+NOTES_BASE_URL+"/updatenote/" + noteId, {
           title,
           tag,
           description,
@@ -51,7 +53,7 @@ const Home = () => {
     } else {
       if ((title != "", tag != "", description != "")) {
         axios
-          .post("http://localhost:5001/api/notes/addnote", {
+          .post(API_BASE_URL+NOTES_BASE_URL+"/addnote", {
             title,
             tag,
             description,

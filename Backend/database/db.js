@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
 
-const URI = 'mongodb://localhost:27017/inotes';
+const URI = 'mongodb+srv://sonusharma30092004:Ssp-radhe-2004@cluster0.e34n2ej.mongodb.net/?retryWrites=true&w=majority&appName=iNotes';
 
 const connectToMongo = async () => {
     try {
