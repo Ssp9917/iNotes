@@ -11,11 +11,7 @@ connectToMongo()
 
 // middleware
 app.use(express.json())
-app.use(cors({
- origin:['https://i-notes-frontend-ashen.vercel.app'],
- methods:["POST","GET","PUT","DELETE"],
- credentials: true
-}))
+app.use(cors())
 
 
 // awailable routes  
