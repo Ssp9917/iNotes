@@ -7,9 +7,13 @@ const MainContext = createContext();
 
 const Context = (props) => {
 
+<<<<<<< HEAD
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
   const NOTES_BASE_URL = process.env.REACT_APP_NOTES_BASE_URL
 
+=======
+axios.defaults.withCredentials = true
+>>>>>>> a31db59b805dfc5bbecdee286d13efec5dcac152
   // get Notes state
   const [allNotes, setAllNotes] = useState([]);
 
@@ -31,7 +35,11 @@ const Context = (props) => {
     setLoading(true);
     try {
       axios
+<<<<<<< HEAD
         .get(API_BASE_URL+NOTES_BASE_URL+"/fetchallnotes")
+=======
+        .get("https://i-notes-backend.vercel.app/api/notes/fetchallnotes")
+>>>>>>> a31db59b805dfc5bbecdee286d13efec5dcac152
         .then((success) => {
           setLoading(false);
           setAllNotes(success.data.data);
@@ -53,7 +61,11 @@ const Context = (props) => {
    const deleteNotes = (id) => {
     // console.log(id)
     axios
+<<<<<<< HEAD
       .delete(API_BASE_URL+NOTES_BASE_URL`/deletenote/` + id)
+=======
+      .delete(`https://i-notes-backend.vercel.app/api/notes/deletenote/` + id)
+>>>>>>> a31db59b805dfc5bbecdee286d13efec5dcac152
       .then((success) => {
         openToast(success.data.msg);
         getAllNotes();
