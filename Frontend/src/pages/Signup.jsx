@@ -2,10 +2,11 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {MainContext} from '../context/Context'
+import axios from "axios";
 
 const Signup = () => {
   // useContext
-  const {error,success} = useContext(MainContext)
+  const {openToast} = useContext(MainContext)
 
 
   //* creating three usestate
@@ -18,46 +19,24 @@ const Signup = () => {
 
   //* Create a function
   const signUpHandler = async () => {
-    //* Send Data through api
-    const res = await fetch('http://localhost:5001/api/auth/signup',
-    {
-        method:'POST',
-        headers: {
-            'Content-Type':'application/json',
-        },
-        body:JSON.stringify({name,email,password})
+   axios.post('http://localhost:5001/api/auth/signup',{email,password,name}).then(
+    (success)=>{
+      if(success.data.status){
+        openToast(success.data.msg,'success')
+        navigate('/login')
+      }else{
+        openToast(success.data.msg,'error')
+      }
     }
-    ) ;
-
-    //* Receving response
-    const signupData = await res.json()
-
-
-    console.log(signupData)
-
-    // condition
-    if(signupData.error){
-      error(signupData.error)
-      // alert(signupData.error)
-    }else{
-      success(signupData.success)
-      // alert(signupData.success)
-      setTimeout(
-        ()=>{
-          navigate('/login')
-
-        },3000
-      )
+   ).catch(
+    (err)=>{
+      openToast(err.message)
     }
-
-
-    setName('')
-    setEmail('')
-    setPassword('')
+   )
   };
 
   return (
-    <div className=" flex justify-center items-center h-screen">
+    <div className="mx-auto my-56">
       {/* main div  */}
       <div className=" bg-[#d2cbbf] shadow-md px-10 py-10 rounded-xl ">
         {/* Top Heading  */}

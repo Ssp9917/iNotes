@@ -52,7 +52,7 @@ const Context = (props) => {
    const deleteNotes = (id) => {
     // console.log(id)
     axios
-      .delete(API_BASE_URL+NOTES_BASE_URL`/deletenote/` + id).then((success) => {
+      .delete(API_BASE_URL+NOTES_BASE_URL+'/deletenote/' + id).then((success) => {
         openToast(success.data.msg);
         getAllNotes();
       })

@@ -1,7 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function SideNavbar() {
+
+    const navigator = useNavigate()
+
+    const logout = ()=>{
+        localStorage.removeItem('token')
+        navigator('/login')
+    }
 
     return (
         <div className='  bg-gradient-to-t from-gray-500 to-[#F6E0BE] h-screen border-r '>
@@ -29,18 +36,6 @@ function SideNavbar() {
                         </li>
                     </Link>
 
-                    {/* Add Note Link  */}
-                    <Link to={'/addnote'}>
-                        <li className='flex space-x-2 transition-all  items-center  h-16 hover:bg-black hover:text-cyan-500 w-52 p-2 rounded-l-xl '>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </span>
-                            <span className=' font-semibold text-xl'>Add Note</span>
-                        </li>
-                    </Link>
-
                     {/* Profile Page Link  */}
                     <Link to={'/profile'}>
                         <li className='flex space-x-2 transition-all  items-center  h-16 hover:bg-black hover:text-cyan-500 w-52 p-2 rounded-l-xl '>
@@ -54,14 +49,17 @@ function SideNavbar() {
                     </Link>
 
                     {/* Logout  */}
-                    <li className='flex space-x-2  transition-all items-center  h-16 hover:bg-black hover:text-cyan-500 w-52 p-2 rounded-l-xl cursor-pointer '>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-                            </svg>
-                        </span>
-                        <span className=' font-semibold text-xl'>Logout</span>
-                    </li>
+                    {
+                    localStorage.getItem('token') ? 
+                         <li onClick={logout} className='flex space-x-2  transition-all items-center  h-16 hover:bg-black hover:text-cyan-500 w-52 p-2 rounded-l-xl cursor-pointer '>
+                         <span>
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                             </svg>
+                         </span>
+                         <span className=' font-semibold text-xl'>Logout</span>
+                     </li>:''
+}
                 </div>
 
             </ul>

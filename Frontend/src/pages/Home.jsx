@@ -159,9 +159,9 @@ const Home = () => {
         </div>
 
         <div className="container px-5 py-10 mx-auto ">
-          <div className="flex gap-10">
+          <div className="flex gap-10 items-center h-20">
             {/* Top Heading  */}
-            <h2 className=" text-center font-bold underline text-3xl mb-8">
+            <h2 className="w-96 text-center font-bold underline text-3xl ">
               All Notes
             </h2>
 

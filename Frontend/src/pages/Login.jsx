@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, json, useNavigate } from 'react-router-dom'
 import { MainContext } from '../context/Context'
+import axios from 'axios'
 
 const Login = () => {
 // context
@@ -12,36 +13,33 @@ const [email,setEmail] = useState('')
 const [password, setPassword] = useState('');
 
 // navigate
-const navigate = useNavigate()
+const navigate = useNavigate() 
 
-const loginHandler = async () => {
+const {openToast} = useContext(MainContext)
 
-    //* Send data through api
-    const res = await fetch('http://localhost:5001/api/auth/login',{
-        method:"POST",
-        headers:{
-            'Content-type':'application/json'
-        },
-        body:JSON.stringify({email,password})
-    })
+const loginHandler =  () => {
 
-    // receving response
-    const loginData =await res.json()
-    console.log(loginData)
-
-    // condition
-    if(loginData.error){
-        error(loginData.error)
-    }else{
-        localStorage.setItem('token',loginData.token)
-        success(loginData.success)
-        navigate('/')
-    }
+    axios.post('http://localhost:5001/api/auth/login',{email,password}).then(
+        (success)=>{
+            if(success.data.status){
+                openToast(success.data.msg,'success')
+                localStorage.setItem('token',success.data.token)
+                navigate('/login')
+              }else{
+                openToast(success.data.msg,'error')
+              }
+        }
+    ).catch(
+        (err)=>{
+            openToast(err.data.msg,'error')
+        }
+    )
+  
 }
 
 
   return (
-    <div className=' flex justify-center items-center h-screen'>
+    <div className='mx-auto my-48'>
             {/* main div  */}
             <div className=' bg-[#d2cbbf] shadow-md px-10 py-10 rounded-xl '>
                 {/* Top Heading  */}

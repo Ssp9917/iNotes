@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Main from "./pages/Main";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -6,7 +6,9 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 
 
+
 function App() {
+
 
   const router = createBrowserRouter([
     {
@@ -15,7 +17,9 @@ function App() {
       children:[
         {
           path:'',
-          element:<Home/>
+          element:<ProtectedRoutes>
+          <Home/>
+          </ProtectedRoutes>
         },
         {
           path:'profile',
@@ -41,3 +45,11 @@ function App() {
 }
 
 export default App;
+
+export const ProtectedRoutes = ({children}) =>{
+  if(localStorage.getItem('token')){
+    return children
+  }else{
+    return <Navigate to='/login'/>
+  }
+}
