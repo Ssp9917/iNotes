@@ -15,23 +15,23 @@ const [password, setPassword] = useState('');
 // navigate
 const navigate = useNavigate() 
 
-const {openToast} = useContext(MainContext)
+const {openToast,API_BASE_URL,USER_BASE_URL} = useContext(MainContext)
 
 const loginHandler =  () => {
 
-    axios.post('http://localhost:5001/api/auth/login',{email,password}).then(
+    axios.post(API_BASE_URL+USER_BASE_URL+'/login',{email,password}).then(
         (success)=>{
             if(success.data.status){
                 openToast(success.data.msg,'success')
                 localStorage.setItem('token',success.data.token)
-                navigate('/login')
+                navigate('/')
               }else{
                 openToast(success.data.msg,'error')
               }
         }
     ).catch(
         (err)=>{
-            openToast(err.data.msg,'error')
+           console.log(err)
         }
     )
   

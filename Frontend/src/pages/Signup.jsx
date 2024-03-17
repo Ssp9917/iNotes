@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Signup = () => {
   // useContext
-  const {openToast} = useContext(MainContext)
+  const {openToast,API_BASE_URL,USER_BASE_URL} = useContext(MainContext)
 
 
   //* creating three usestate
@@ -19,7 +19,7 @@ const Signup = () => {
 
   //* Create a function
   const signUpHandler = async () => {
-   axios.post('http://localhost:5001/api/auth/signup',{email,password,name}).then(
+   axios.post(API_BASE_URL+USER_BASE_URL+'/signup',{email,password,name}).then(
     (success)=>{
       if(success.data.status){
         openToast(success.data.msg,'success')

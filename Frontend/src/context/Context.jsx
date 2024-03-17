@@ -8,6 +8,7 @@ const MainContext = createContext();
 const Context = (props) => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
   const NOTES_BASE_URL = process.env.REACT_APP_NOTES_BASE_URL
+  const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL
 
   // get Notes state
   const [allNotes, setAllNotes] = useState([]);
@@ -67,7 +68,7 @@ const Context = (props) => {
   }, []);
   return (
     <MainContext.Provider
-      value={{ allNotes,setIsUpdate, loading, getAllNotes, openToast, deleteNotes,getAllNotes,API_BASE_URL,NOTES_BASE_URL}}
+      value={{ allNotes,setIsUpdate, loading, getAllNotes, openToast, deleteNotes,getAllNotes,API_BASE_URL,NOTES_BASE_URL,USER_BASE_URL}}
     >
       <ToastContainer />
       {props.children}
